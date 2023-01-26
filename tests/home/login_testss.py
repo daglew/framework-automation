@@ -18,16 +18,24 @@ class LoginTests:
         login = self.driver.find_element(By.XPATH, "//a[@href='/login']")
         login.click()
 
-        input_email = self.driver.find_element(By.ID, "email")
-        input_email.send_keys("test@email.com")
+        aaddres_email = self.driver.find_element(By.ID, "email")
+        aaddres_email.clear()
+        aaddres_email.send_keys("test@email.com")
 
-        input_password = self.driver.find_element(By.ID, "password")
-        input_password.send_keys("abcabc")
-        time.sleep(6)
+        password = self.driver.find_element(By.ID, "password")
+        password.send_keys("abcabc")
+        time.sleep(4)
 
         button_login = self.driver.find_element(By.XPATH, "//input[@value='Login']")
         button_login.click()
-        time.sleep(3)
+        time.sleep(4)
+
+        icon_user = self.driver.find_element(By.XPATH, ".//*[@id='navbar']//span[text()='User Settings']")
+        if icon_user is not None:
+            print("You have successfully logged in.")
+        else:
+            print("Failed to login successfully.")
+        time.sleep(6)
 
         self.driver.close()
 
