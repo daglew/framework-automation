@@ -1,4 +1,3 @@
-import time
 
 from selenium.webdriver.common.by import By
 
@@ -7,18 +6,39 @@ class PageLogin:
     def __init__(self, driver):
         self.driver = driver
 
-    def login(self, email_address, password_):
-        login = self.driver.find_element(By.XPATH, "//a[@href='/login']")
-        login.click()
+    # loc
+    _login_xpath = "//a[@href='/login']"
+    _addres_email_id = "email"
+    _password_id = "password"
+    _button_login_xpath = "//input[@value='Login']"
 
-        aaddres_email = self.driver.find_element(By.ID, "email")
-        aaddres_email.clear()
-        aaddres_email.send_keys(email_address)
+    def get_login(self):
+        return self.driver.find_element(By.XPATH, self._login_xpath)
 
-        password = self.driver.find_element(By.ID, "password")
-        password.send_keys(password_)
-        time.sleep(4)
+    def get_addres_email(self):
+        return self.driver.find_element(By.ID, self._addres_email_id)
 
-        button_login = self.driver.find_element(By.XPATH, "//input[@value='Login']")
-        button_login.click()
+    def get_password_file(self):
+        return self.driver.find_element(By.ID, self._password_id)
+
+    def get_button_login(self):
+        return self.driver.find_element(By.XPATH, self._button_login_xpath)
+
+    def click_login_link(self):
+        self.get_login().click()
+
+    def email_enter(self, email):
+        self.get_login().send_keys(email)
+
+    def password_enter(self, password):
+        self.get_password_file().send_keys(password)
+
+    def click_login_button(self):
+        self.get_button_login().click()
+
+    def login(self, email_address, password):
+        self.click_login_link()
+        self.email_enter(email_address)
+        self.password_enter(password)
+        self.click_login_button()
 
