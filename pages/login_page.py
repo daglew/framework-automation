@@ -8,7 +8,7 @@ class PageLogin:
 
     # loc
     _login_xpath = "//a[@href='/login']"
-    _addres_email_id = "email"
+    _addres_email_xpath = "//input[@id='email'][@class='form-control input-md']"
     _password_id = "password"
     _button_login_xpath = "//input[@value='Login']"
 
@@ -16,7 +16,7 @@ class PageLogin:
         return self.driver.find_element(By.XPATH, self._login_xpath)
 
     def get_addres_email(self):
-        return self.driver.find_element(By.ID, self._addres_email_id)
+        return self.driver.find_element(By.XPATH, self._addres_email_xpath)
 
     def get_password_file(self):
         return self.driver.find_element(By.ID, self._password_id)
