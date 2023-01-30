@@ -1,4 +1,5 @@
 from selenium.webdriver.common.by import By
+from traceback import print_stack
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import *
@@ -36,6 +37,15 @@ class SeleniumDriverHelpers:
         except:
             print("The specified item was not found.")
         return element
+
+    def click_element(self, locator, locator_type="id"):
+        try:
+            element = self.get_element(locator, locator_type)
+            element.click()
+            print(f"An item with was clicked a locator: {locator} and locator_type: {locator_type}.")
+        except:
+            print(f"Cannot be clicked element with locator: {locator} and locator_type: {locator_type}.")
+            print_stack()
 
     def present_element(self, locator, locator_type="id"):
         try:
@@ -80,6 +90,7 @@ class SeleniumDriverHelpers:
             print(f"Element appeared on the page.")
         except:
             print(f"Element not appeared on the page.")
+            print_stack()
         return element
 
 

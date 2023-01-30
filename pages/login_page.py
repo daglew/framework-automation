@@ -1,9 +1,10 @@
-
 from selenium.webdriver.common.by import By
+from base.selenium_driver_helpers import SeleniumDriverHelpers
 
 
-class PageLogin:
+class PageLogin(SeleniumDriverHelpers):
     def __init__(self, driver):
+        super().__init__(driver)
         self.driver = driver
 
     # loc
