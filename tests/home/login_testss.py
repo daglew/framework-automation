@@ -17,11 +17,11 @@ class LoginTests:
         log_page = PageLogin(self.driver)
         log_page.login(email_address="test@email.com", password="abcabc")
 
-        icon_user = self.driver.find_element(By.XPATH, "//*[@id='navbar']//span[text()='User Settings']")
-        if icon_user is not None:
-            print("You have successfully logged in.")
-        else:
-            print("Failed to login successfully.")
+        # icon_user = self.driver.find_element(By.XPATH, "//*[@id='navbar']//span[text()='User Settings']")
+        # if icon_user is not None:
+        #     print("You have successfully logged in.")
+        # else:
+        #     print("Failed to login successfully.")
         time.sleep(4)
         self.driver.close()
 

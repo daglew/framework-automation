@@ -38,6 +38,15 @@ class SeleniumDriverHelpers:
             print("The specified item was not found.")
         return element
 
+    def send_the_keys(self, data, locator, locator_type="id"):
+        try:
+            element = self.get_element(locator, locator_type)
+            element.send_keys(data)
+            print(f"Sent data on element with locator: : {locator} and locator_type: {locator_type}.")
+        except:
+            print(f"Cannot send data on the element with locator: {locator} and locator_type: {locator_type}.")
+            print_stack()
+
     def click_element(self, locator, locator_type="id"):
         try:
             element = self.get_element(locator, locator_type)
