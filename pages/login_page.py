@@ -9,7 +9,8 @@ class PageLogin(SeleniumDriverHelpers):
 
     # loc
     _login_xpath = "//a[@href='/login']"
-    _addres_email_xpath = "//input[@id='email'][@class='form-control input-md']"
+    # _addres_email_xpath = "//input[@id='email'][@class='form-control input-md']"
+    _addres_email_xpath = "//*[@id='email']"
     _password_id = "password"
     _button_login_xpath = "//input[@value='Login']"
 
