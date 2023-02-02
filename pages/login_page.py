@@ -9,8 +9,7 @@ class PageLogin(SeleniumDriverHelpers):
 
     # loc
     _login_xpath = "//a[@href='/login']"
-    # _addres_email_xpath = "//input[@id='email'][@class='form-control input-md']"
-    _addres_email_xpath = "//*[@id='email']"
+    _addres_email_xpath = "//input[@id='email'][@class='form-control input-md']"
     _password_id = "password"
     _button_login_xpath = "//input[@value='Login']"
 
@@ -31,7 +30,7 @@ class PageLogin(SeleniumDriverHelpers):
         # self.get_login().click()
 
     def email_enter(self, email_address):
-        self.send_the_keys(email_address, self._addres_email_xpath)
+        self.send_the_keys(email_address, self._addres_email_xpath, locator_type="xpath")
         # self.get_login().send_keys(email)
 
     def password_enter(self, password):
