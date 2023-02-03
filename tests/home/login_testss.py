@@ -2,6 +2,7 @@ import time
 from selenium import webdriver
 from pages.login_page import PageLogin
 from paths import Paths
+import unittest
 
 
 class LoginTests:
