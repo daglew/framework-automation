@@ -16,7 +16,7 @@ class PageLogin(SeleniumDriverHelpers):
     _login_xpath = "//a[@href='/login']"
     _addres_email_xpath = "//input[@id='email'][@class='form-control input-md']"
     _password_id = "password"
-    _button_login_xpath = "//input[@value='Login']"
+    _button_login_xpath = "//button[@id='login']"
 
     def click_login_link(self):
         self.click_element(self._login_xpath, "xpath")
@@ -46,5 +46,7 @@ class PageLogin(SeleniumDriverHelpers):
         return result
 
     def check_login_failed(self):
-        print("Test.")
+        result = self.check_elements_present("//span[@class='dynamic-text help-block']",
+                                             locator_type="xpath")
+        return result
 
