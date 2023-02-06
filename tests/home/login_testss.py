@@ -9,14 +9,11 @@ from paths import Paths
 import unittest
 
 
+@pytest.mark.usefixtures("one_time_setup", "setup")
 class LoginTests:
-    def __init__(self):
-        self.page = "https://courses.letskodeit.com"
-        self.driver = webdriver.Chrome(executable_path=Paths.CHROMEDRIVER_PATH)
-        self.driver.get(self.page)
-        self.driver.maximize_window()
-        self.driver.implicitly_wait(4)
-        self.log_page = PageLogin(self.driver)
+    @pytest.fixture(autouse=True)
+    def class_setup(self, one_time_setup):
+        log_page = PageLogin(self.driver)
 
     @pytest.mark.run(order=2)
     def test_login_valid(self):
