@@ -1,20 +1,19 @@
 import pytest
-
 from paths import Paths
 from selenium import webdriver
 
-@pytest.yield_fixture()
+
+@pytest.fixture()
 def setup():
     print("Running method level setup.")
     yield
     print("Running method level teardown.")
 
 
-@pytest.yield_fixture(scope="class")
+@pytest.fixture(scope="session")
 def one_time_setup(request, browser):
     print("Running one_time_setup.")
     if browser == "firefox":
-        value = 10
         page = "https://courses.letskodeit.com"
         driver = webdriver.Chrome(executable_path=Paths.CHROMEDRIVER_PATH)
         driver.maximize_window()
@@ -27,8 +26,8 @@ def one_time_setup(request, browser):
         driver.get(page)
         print("Running tests on chrome.")
 
-    if request.cls is not None:
-        request.cls.driver = driver
+    # if request.cls is not None:
+    #     request.cls.driver = driver
 
     yield driver
     driver.quit()

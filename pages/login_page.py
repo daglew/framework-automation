@@ -1,6 +1,5 @@
 import time
 
-from selenium.webdriver.common.by import By
 from base.selenium_driver_helpers import SeleniumDriverHelpers
 import logging
 import utilities.custom_logger as cust_log
@@ -59,4 +58,3 @@ class PageLogin(SeleniumDriverHelpers):
         email_field.clear()
         password_field = self.get_element(locator=self._password_id)
         password_field.clear()
-
