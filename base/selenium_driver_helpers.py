@@ -8,7 +8,7 @@ import utilities.custom_logger as cust_log
 
 
 class SeleniumDriverHelpers:
-    log, file_handler = cust_log.custom_logger(log_level=logging.DEBUG)
+    log = cust_log.custom_logger(log_level=logging.DEBUG)
 
     def __init__(self, driver):
         self.driver = driver

@@ -1,17 +1,26 @@
 import time
-
+from selenium import webdriver
 from base.selenium_driver_helpers import SeleniumDriverHelpers
 import logging
 import utilities.custom_logger as cust_log
+from paths import Paths
 
 
 class PageLogin(SeleniumDriverHelpers):
 
-    log, file_handler = cust_log.custom_logger(log_level=logging.DEBUG)
+    log = cust_log.custom_logger(log_level=logging.DEBUG)
 
     def __init__(self, driver):
         super().__init__(driver)
         self.driver = driver
+
+    # def __init__(self, driver):
+    #     super().__init__(driver)
+    #     self.driver = webdriver.Chrome(executable_path=Paths.CHROMEDRIVER_PATH)
+    #     self.driver.maximize_window()
+    #     self.page = "https://letskodeit.teachable.com/"
+    #     self.driver.implicitly_wait(15)
+    #     self.driver.get(self.page)
 
     # loc
     _login_xpath = "//a[@href='/login']"
@@ -20,7 +29,7 @@ class PageLogin(SeleniumDriverHelpers):
     _button_login_xpath = "//button[@id='login']"
 
     def click_login_link(self):
-        self.click_element(self._login_xpath, "xpath")
+        self.click_element(self._login_xpath, locator_type="xpath")
         # self.get_login().click()
 
     def email_enter(self, email_address):
