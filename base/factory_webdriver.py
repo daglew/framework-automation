@@ -1,6 +1,7 @@
 import traceback
 from selenium import webdriver
 from paths import Paths
+from base.initialize_webdriver import InitializeWebDriver
 
 
 class FactoryWebDriver:
