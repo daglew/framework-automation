@@ -13,6 +13,9 @@ class SeleniumDriverHelpers:
     def __init__(self, driver):
         self.driver = driver
 
+    def get_title(self):
+        return self.driver.title
+
     def get_element_type(self, locator_type):
         locator_type = locator_type.lower()
         if locator_type == "id":
@@ -105,6 +108,14 @@ class SeleniumDriverHelpers:
             self.log.infogetheader(f"Element not appeared on the page.")
             print_stack()
         return element
+
+    def check_title(self):
+        if "Let's Kode It" in self.get_title():
+            return True
+        else:
+            return False
+
+
 
 
 

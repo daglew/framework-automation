@@ -13,8 +13,12 @@ class LoginTests(unittest.TestCase):
     @pytest.mark.run(order=2)
     def test_login_valid(self):
         self.log_page.login(email_address="kasia.basia_69@interia.com", password="KASIA.BASIA")
-        result = self.log_page.check_login_successful()
-        assert result, f"Result: {result} is not True."
+
+        result_1 = self.log_page.check_title()
+        assert result_1, f"Result_1: {result_1} is not True."
+
+        result_2 = self.log_page.check_login_successful()
+        assert result_2, f"Result_2: {result_2} is not True."
 
     @pytest.mark.run(order=1)
     def test_login_invalid(self):
