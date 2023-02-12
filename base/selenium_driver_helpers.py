@@ -8,7 +8,7 @@ import utilities.custom_logger as cust_log
 
 
 class SeleniumDriverHelpers:
-    log = cust_log.custom_logger(log_level=logging.DEBUG)
+    log = cust_log.custom_logger(log_level=logging.DEBUG)[0]
 
     def __init__(self, driver):
         self.driver = driver
@@ -108,15 +108,3 @@ class SeleniumDriverHelpers:
             self.log.infogetheader(f"Element not appeared on the page.")
             print_stack()
         return element
-
-    def check_title(self):
-        if "Let's Kode It" in self.get_title():
-            return True
-        else:
-            return False
-
-
-
-
-
-

@@ -1,28 +1,14 @@
 import time
-from selenium import webdriver
 from base.selenium_driver_helpers import SeleniumDriverHelpers
-import logging
-import utilities.custom_logger as cust_log
-from paths import Paths
 
 
 class PageLogin(SeleniumDriverHelpers):
 
-    log = cust_log.custom_logger(log_level=logging.DEBUG)
-
     def __init__(self, driver):
         super().__init__(driver)
         self.driver = driver
+        self.page = self.driver.get("https://courses.letskodeit.com")
 
-    # def __init__(self, driver):
-    #     super().__init__(driver)
-    #     self.driver = webdriver.Chrome(executable_path=Paths.CHROMEDRIVER_PATH)
-    #     self.driver.maximize_window()
-    #     self.page = "https://letskodeit.teachable.com/"
-    #     self.driver.implicitly_wait(15)
-    #     self.driver.get(self.page)
-
-    # loc
     _login_xpath = "//a[@href='/login']"
     _addres_email_xpath = "//input[@id='email' and @class='form-control input-md']"
     _password_id = "password"
@@ -30,19 +16,15 @@ class PageLogin(SeleniumDriverHelpers):
 
     def click_login_link(self):
         self.click_element(self._login_xpath, locator_type="xpath")
-        # self.get_login().click()
 
     def email_enter(self, email_address):
         self.send_the_keys(email_address, self._addres_email_xpath, locator_type="xpath")
-        # self.get_login().send_keys(email)
 
     def password_enter(self, password):
         self.send_the_keys(password, self._password_id)
-        # self.get_password_file().send_keys(password)
 
     def click_login_button(self):
         self.click_element(self._button_login_xpath, locator_type="xpath")
-        # self.get_button_login().click()
 
     def login(self, email_address="", password=""):
         self.click_login_link()
