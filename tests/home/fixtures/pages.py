@@ -7,3 +7,4 @@ from pages.login_page import PageLogin
 def open_login_page(chromedriver):
     page = PageLogin(chromedriver)
     return page
+

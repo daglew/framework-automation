@@ -4,7 +4,7 @@ from paths import Paths
 from selenium import webdriver
 
 
-@pytest.fixture()
+@pytest.fixture(scope="session")
 def chromedriver(request):
     driver = webdriver.Chrome(executable_path=Paths.CHROMEDRIVER_PATH)
     driver.maximize_window()
