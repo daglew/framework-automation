@@ -21,14 +21,17 @@ class TestStatus(SeleniumDriverHelpers):
                     self.log.info(f"### FAIL CHECK ::  {result_message}")
             else:
                 self.result_list.append("FAIL")
-                self.log.info(f"### FAIL CHECK ::  {result_message}")
+                self.log.error(f"### FAIL CHECK ::  {result_message}")
         except:
             self.result_list.append("FAIL")
-            self.log.info("### EXCEPTION !!!!!")
+            self.log.error("### EXCEPTION !!!!!")
 
     def mark(self, result, result_message):
         self.result_set(result, result_message)
 
     def final_mark(self, test_name, result, result_message):
-        print()
-
+        self.result_set(result, result_message)
+        if "FAIL" in self.result_list:
+            self.log.info(f"{test_name} ### EXCEPTION !!!!!")
+            self.result_list.clear()
+            assert result, f"Result: {result} is not True"
