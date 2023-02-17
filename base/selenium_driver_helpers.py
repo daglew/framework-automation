@@ -13,6 +13,9 @@ class SeleniumDriverHelpers:
     def __init__(self, driver):
         self.driver = driver
 
+    def screen_shot(self, result_message):
+        file_name = f"{result_message}"
+
     def get_title(self):
         return self.driver.title
 

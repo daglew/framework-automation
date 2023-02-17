@@ -18,7 +18,7 @@ class TestStatus(SeleniumDriverHelpers):
                     self.log.info(f"### SUCCESSFUL CHECK ::  {result_message}")
                 else:
                     self.result_list.append("FAIL")
-                    self.log.info(f"### FAIL CHECK ::  {result_message}")
+                    self.log.error(f"### FAIL CHECK ::  {result_message}")
             else:
                 self.result_list.append("FAIL")
                 self.log.error(f"### FAIL CHECK ::  {result_message}")
@@ -32,6 +32,11 @@ class TestStatus(SeleniumDriverHelpers):
     def final_mark(self, test_name, result, result_message):
         self.result_set(result, result_message)
         if "FAIL" in self.result_list:
-            self.log.info(f"{test_name} ### EXCEPTION !!!!!")
+            self.log.error(f"{test_name} ### TEST FAILED !")
             self.result_list.clear()
             assert result, f"Result: {result} is not True"
+        else:
+            self.log.info(f"### TEST SUCCESSFUL ::  {result_message}")
+            self.result_list.clear()
+            assert result, f"Result: {result} is True"
+
