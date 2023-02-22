@@ -1,3 +1,5 @@
+import time
+
 from selenium.webdriver.common.by import By
 from traceback import print_stack
 from selenium.webdriver.support.ui import WebDriverWait
@@ -5,6 +7,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import *
 import logging
 import utilities.custom_logger as cust_log
+import os
 
 
 class SeleniumDriverHelpers:
@@ -14,7 +17,22 @@ class SeleniumDriverHelpers:
         self.driver = driver
 
     def screen_shot(self, result_message):
-        file_name = f"{result_message}"
+        file_name = result_message + "." + str(round(time.time() * 1000)) + ".png"
+        directory_screenshot = "../screenshots/"
+        file_name_relative = directory_screenshot + file_name
+        directory_current = os.path.dirname(__file__)
+        file_destination = os.path.join(directory_current, file_name_relative)
+        directory_destination = os.path.join(directory_current, directory_screenshot)
+
+        try:
+            if not os.path.exists(directory_destination):
+                os.makedirs(directory_destination)
+            self.driver.screenshots_save(file_destination)
+            self.log.info(f"Save the screenshot in the directory: {file_destination}")
+        except:
+            self.log.error("### Exception occurred.")
+            print_stack()
+
 
     def get_title(self):
         return self.driver.title
