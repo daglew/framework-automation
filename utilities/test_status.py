@@ -1,6 +1,7 @@
 import logging
 import utilities.custom_logger as cust_log
 from base.selenium_driver_helpers import SeleniumDriverHelpers
+from traceback import print_stack
 
 
 class TestStatus(SeleniumDriverHelpers):
@@ -19,12 +20,17 @@ class TestStatus(SeleniumDriverHelpers):
                 else:
                     self.result_list.append("FAIL")
                     self.log.error(f"### FAIL CHECK ::  {result_message}")
+                    self.screen_shot(result_message)
             else:
                 self.result_list.append("FAIL")
                 self.log.error(f"### FAIL CHECK ::  {result_message}")
+                self.screen_shot(result_message)
+
         except:
             self.result_list.append("FAIL")
             self.log.error("### EXCEPTION !!!!!")
+            self.screen_shot(result_message)
+            print_stack
 
     def mark(self, result, result_message):
         self.result_set(result, result_message)

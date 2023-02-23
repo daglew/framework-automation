@@ -1,5 +1,4 @@
 import time
-
 from selenium.webdriver.common.by import By
 from traceback import print_stack
 from selenium.webdriver.support.ui import WebDriverWait
@@ -27,12 +26,11 @@ class SeleniumDriverHelpers:
         try:
             if not os.path.exists(directory_destination):
                 os.makedirs(directory_destination)
-            self.driver.screenshots_save(file_destination)
+            self.driver.screenshot_save(file_destination)
             self.log.info(f"Save the screenshot in the directory: {file_destination}")
         except:
             self.log.error("### Exception occurred.")
             print_stack()
-
 
     def get_title(self):
         return self.driver.title
