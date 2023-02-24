@@ -49,3 +49,10 @@ class PageLogin(SeleniumDriverHelpers):
         email_field.clear()
         password_field = self.get_element(locator=self._password_id)
         password_field.clear()
+
+    def check_title(self):
+        if "Google" in self.get_title():
+            return True
+        else:
+            return False
+
