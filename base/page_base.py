@@ -12,5 +12,9 @@ class PageBase(SeleniumDriverHelpers)
 
     def page_title_verify(self, title_verify):
         try:
-            title_current = self.get_title()
-            return self.util.
+            actual_text = self.get_title()
+            return self.util.include_verify_text(actual_text, title_verify)
+        except:
+            self.log.error("Failed to fetch page title.")
+            print_stack()
+            return False

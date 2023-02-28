@@ -38,4 +38,34 @@ class Util(object):
             list_name.append(self.get_name_unique(length_item[i]))
             return list_name
 
+    def check_text_contains(self, actual_text, expected_text):
+        self.log.info("The actual text from the application's web interface --> :: " + actual_text)
+        self.log.info("The expected text from the application's web interface --> :: " + expected_text)
+        if expected_text.lower() in actual_text.lower():
+            self.log.info("### INCLUDE VERIFICATION !!")
+            return True
+        else:
+            self.log.info("### VERIFICATION DOES NOT INCLUDE !!")
+            return False
+
+    def include_verify_text(self, actual_text, expected_text):
+        self.log.info("The actual text from the application's web interface --> :: " + actual_text)
+        self.log.info("The expected text from the application's web interface --> :: " + expected_text)
+        if actual_text.lower() == expected_text.lower():
+            self.log.info("### INCLUDE VERIFICATION !!")
+            return True
+        else:
+            self.log.info("### VERIFICATION DOES NOT INCLUDE !!")
+            return False
+
+    def check_list_compatibility(self, actual_list, expected_list):
+        return set(expected_list) == set(actual_list)
+
+    def check_list_compatibility(self, actual_list, expected_list):
+        lenght = len(expected_list)
+        for i in range(0, lenght):
+            if expected_list[i] not in actual_list:
+                return False
+        else:
+            return True
 
