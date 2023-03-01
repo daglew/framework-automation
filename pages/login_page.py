@@ -1,8 +1,8 @@
 import time
-from base.selenium_driver_helpers import SeleniumDriverHelpers
+from base.page_base import PageBase
 
 
-class PageLogin(SeleniumDriverHelpers):
+class PageLogin(PageBase):
 
     def __init__(self, driver):
         super().__init__(driver)
@@ -51,8 +51,6 @@ class PageLogin(SeleniumDriverHelpers):
         password_field.clear()
 
     def check_title_login(self):
-        if "Google" in self.get_title():
-            return True
-        else:
-            return False
+        return self.page_title_verify(title_verify="Google")
+
 

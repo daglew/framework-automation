@@ -3,7 +3,7 @@ from traceback import print_stack
 from utilities.util import Util
 
 
-class PageBase(SeleniumDriverHelpers)
+class PageBase(SeleniumDriverHelpers):
 
     def __init__(self, driver):
         super(PageBase, self).__init__(driver)
