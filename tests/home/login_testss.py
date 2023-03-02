@@ -14,6 +14,6 @@ class TestLogin:
         page = open_login_page
         page.login(email_address="kasia.basia_69@interia.com", password="pKASIA.BASIA")
         result = page.check_login_failed()
-        assert result, f"Result: {result} is not True"
+        assert result, f"Result: {result} is not True."
 
 

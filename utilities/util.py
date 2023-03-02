@@ -58,7 +58,7 @@ class Util(object):
             self.log.info("### VERIFICATION DOES NOT INCLUDE !!")
             return False
 
-    def check_list_compatibility(self, actual_list, expected_list):
+    def check_list_match(self, actual_list, expected_list):
         return set(expected_list) == set(actual_list)
 
     def check_list_compatibility(self, actual_list, expected_list):

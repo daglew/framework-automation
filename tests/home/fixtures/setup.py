@@ -32,3 +32,4 @@ def browser(request):
 @pytest.fixture(scope="session")
 def ostype(request):
     return request.config.getoption("--ostype")
+

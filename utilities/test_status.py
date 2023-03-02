@@ -30,7 +30,7 @@ class TestStatus(SeleniumDriverHelpers):
             self.result_list.append("FAIL")
             self.log.error("### EXCEPTION !!!!!")
             self.screen_shot(result_message)
-            print_stack
+            print_stack()
 
     def mark(self, result, result_message):
         self.result_set(result, result_message)
