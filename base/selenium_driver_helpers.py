@@ -64,18 +64,31 @@ class SeleniumDriverHelpers:
             self.log.info("The specified item was not found.")
         return element
 
-    def send_the_keys(self, data, locator, locator_type="id"):
+    def send_the_keys(self, data, locator="", locator_type="id", element=None):
         try:
-            element = self.get_element(locator, locator_type)
+            if locator:
+                element = self.get_element(locator, locator_type)
             element.send_keys(data)
             self.log.info(f"Sent data on element with locator: : {locator} and locator_type: {locator_type}.")
         except:
             self.log.info(f"Cannot send data on the element with locator: {locator} and locator_type: {locator_type}.")
             print_stack()
 
-    def click_element(self, locator, locator_type="id"):
+    def get_element_list(self, locator, locator_type="id"):
+        element = None
         try:
-            element = self.get_element(locator, locator_type)
+            locator_type = locator_type.lower()
+            type_by = self.get_element_type(locator_type)
+            element = self.driver.find_element(type_by, locator)
+            self.log.info("Found element list of items with locator: " + locator + "and locator_type: " + locator_type)
+        except:
+            self.log.info("List of element not found using locator: " + locator + "and locator_type: " + locator_type)
+        return element
+
+    def click_element(self, locator="", locator_type="id", element=None):
+        try:
+            if locator:
+                element = self.get_element(locator, locator_type)
             element.click()
             self.log.info(f"An item with was clicked a locator: {locator} and locator_type: {locator_type}.")
         except:
