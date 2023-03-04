@@ -95,15 +95,15 @@ class SeleniumDriverHelpers:
             self.log.info(f"Cannot be clicked element with locator: {locator} and locator_type: {locator_type}.")
             print_stack()
 
-    def present_element(self, locator, locator_type="id"):
+    def present_element(self, locator, locator_type="id", element=None):
         try:
-            locator_type = locator_type.lower()
-            by_type = self.get_element_type(locator_type)
-            element = self.driver.find_element(by_type, locator)
+            if locator:
+                element = self.get_element(locator, locator_type)
             if element is not None:
-                self.log.info("The specified item was found.")
+                self.log.info("The specified item was found locator: " + locator + "locator_type: " + locator_type)
                 return True
             else:
+                self.log.info("There is no item in the locator: " + locator + "locator_type: " + locator_type)
                 return False
         except:
             self.log.info("The specified item was not found.")
@@ -115,19 +115,19 @@ class SeleniumDriverHelpers:
             by_type = self.get_element_type(locator_type)
             list_elements = self.driver.find_elements(by_type, locator)
             if len(list_elements) > 0:
-                self.log.info("The specified item was found.")
+                self.log.info("The specified item was found locator: " + locator + "locator_type: " + locator_type)
                 return True
             else:
-                self.log.info("The specified item was not found.")
+                self.log.info("The specified item was not found: " + locator + "locator_type: " + locator_type)
                 return False
         except:
             self.log.info("The specified item was not found.")
             return False
 
-    def for_element_wait(self, locator, type_locator="id", timeout=10, poll_frequency=0.5):
+    def for_element_wait(self, locator, locator_type="id", timeout=10, poll_frequency=0.5):
         element = None
         try:
-            by_type_element = self.get_element_type(locator_type=type_locator)
+            by_type_element = self.get_element_type(locator_type=locator_type)
 
             self.log.info(f"Waiting for a maximum of: {str(timeout)} seconds for element to be visible.")
             wait = WebDriverWait(self.driver, timeout=timeout, poll_frequency=poll_frequency,
@@ -140,3 +140,14 @@ class SeleniumDriverHelpers:
             self.log.infogetheader(f"Element not appeared on the page.")
             print_stack()
         return element
+
+    def text_get(self, locator="", locator_type="id", element=None, infor=""):
+        try:
+            if locator:
+                self.log.debug("locator in condition.")
+                element = self.get_element(locator, locator_type)
+            self.log.debug("Before finding the text.")
+            text = element.text
+            self.log.debug("Once the item is found, the size is: " + str(len(text)))
+            if len(text) == 0:
+                text = element.
