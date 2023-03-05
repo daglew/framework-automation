@@ -141,7 +141,7 @@ class SeleniumDriverHelpers:
             print_stack()
         return element
 
-    def text_get(self, locator="", locator_type="id", element=None, infor=""):
+    def text_get(self, locator="", locator_type="id", element=None, info=""):
         try:
             if locator:
                 self.log.debug("locator in condition.")
@@ -150,4 +150,31 @@ class SeleniumDriverHelpers:
             text = element.text
             self.log.debug("Once the item is found, the size is: " + str(len(text)))
             if len(text) == 0:
-                text = element.
+                text = element.get_attribute("innerText")
+            if len(text) != 0:
+                self.log.info("getting text on element :: " + info)
+                self.log.info("text is ::'" + text + "'")
+                text = text.strip()
+        except:
+            self.log.error("Failed to get text on element " + info)
+            print_stack()
+            text = None
+        return text
+
+    def displayed_is_element(self, locator="", locator_type="id", element=None):
+        displayed = False
+        try:
+            if locator:
+                element = self.get_element(locator, locator_type)
+            if element is not None:
+                displayed = element.is_displayed()
+                self.log.info("Element is displayed with locator: " + locator +
+                              " locator_type: " + locator_type)
+            else:
+                self.log.info("Element is  not displayed with locator: " + locator +
+                      " locator_type: " + locator_type)
+            return displayed
+        except:
+            print("Element not found")
+            return False
+
