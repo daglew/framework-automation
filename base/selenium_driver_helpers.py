@@ -171,10 +171,15 @@ class SeleniumDriverHelpers:
                 self.log.info("Element is displayed with locator: " + locator +
                               " locator_type: " + locator_type)
             else:
-                self.log.info("Element is  not displayed with locator: " + locator +
-                      " locator_type: " + locator_type)
+                self.log.info("Element is  not displayed with locator: " + locator + " locator_type: " + locator_type)
             return displayed
         except:
             print("Element not found")
             return False
+
+    def scroll_web(self, direction="up"):
+        if direction == "up":
+            self.driver.execute_script("window.scroll_by(0, -1000);")
+        if direction == "down":
+            self.driver.execute_script("window.scroll_by(0, 1000);")
 
