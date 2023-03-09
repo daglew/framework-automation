@@ -64,33 +64,46 @@ class SeleniumDriverHelpers:
             self.log.info("The specified item was not found.")
         return element
 
-    def send_the_keys(self, data, locator, locator_type="id"):
+    def send_the_keys(self, data, locator="", locator_type="id", element=None):
         try:
-            element = self.get_element(locator, locator_type)
+            if locator:
+                element = self.get_element(locator, locator_type)
             element.send_keys(data)
             self.log.info(f"Sent data on element with locator: : {locator} and locator_type: {locator_type}.")
         except:
             self.log.info(f"Cannot send data on the element with locator: {locator} and locator_type: {locator_type}.")
             print_stack()
 
-    def click_element(self, locator, locator_type="id"):
+    def get_element_list(self, locator, locator_type="id"):
+        element = None
         try:
-            element = self.get_element(locator, locator_type)
+            locator_type = locator_type.lower()
+            type_by = self.get_element_type(locator_type)
+            element = self.driver.find_element(type_by, locator)
+            self.log.info("Found element list of items with locator: " + locator + "and locator_type: " + locator_type)
+        except:
+            self.log.info("List of element not found using locator: " + locator + "and locator_type: " + locator_type)
+        return element
+
+    def click_element(self, locator="", locator_type="id", element=None):
+        try:
+            if locator:
+                element = self.get_element(locator, locator_type)
             element.click()
             self.log.info(f"An item with was clicked a locator: {locator} and locator_type: {locator_type}.")
         except:
             self.log.info(f"Cannot be clicked element with locator: {locator} and locator_type: {locator_type}.")
             print_stack()
 
-    def present_element(self, locator, locator_type="id"):
+    def present_element(self, locator, locator_type="id", element=None):
         try:
-            locator_type = locator_type.lower()
-            by_type = self.get_element_type(locator_type)
-            element = self.driver.find_element(by_type, locator)
+            if locator:
+                element = self.get_element(locator, locator_type)
             if element is not None:
-                self.log.info("The specified item was found.")
+                self.log.info("The specified item was found locator: " + locator + "locator_type: " + locator_type)
                 return True
             else:
+                self.log.info("There is no item in the locator: " + locator + "locator_type: " + locator_type)
                 return False
         except:
             self.log.info("The specified item was not found.")
@@ -102,19 +115,19 @@ class SeleniumDriverHelpers:
             by_type = self.get_element_type(locator_type)
             list_elements = self.driver.find_elements(by_type, locator)
             if len(list_elements) > 0:
-                self.log.info("The specified item was found.")
+                self.log.info("The specified item was found locator: " + locator + "locator_type: " + locator_type)
                 return True
             else:
-                self.log.info("The specified item was not found.")
+                self.log.info("The specified item was not found: " + locator + "locator_type: " + locator_type)
                 return False
         except:
             self.log.info("The specified item was not found.")
             return False
 
-    def for_element_wait(self, locator, type_locator="id", timeout=10, poll_frequency=0.5):
+    def for_element_wait(self, locator, locator_type="id", timeout=10, poll_frequency=0.5):
         element = None
         try:
-            by_type_element = self.get_element_type(locator_type=type_locator)
+            by_type_element = self.get_element_type(locator_type=locator_type)
 
             self.log.info(f"Waiting for a maximum of: {str(timeout)} seconds for element to be visible.")
             wait = WebDriverWait(self.driver, timeout=timeout, poll_frequency=poll_frequency,
@@ -127,3 +140,46 @@ class SeleniumDriverHelpers:
             self.log.infogetheader(f"Element not appeared on the page.")
             print_stack()
         return element
+
+    def text_get(self, locator="", locator_type="id", element=None, info=""):
+        try:
+            if locator:
+                self.log.debug("locator in condition.")
+                element = self.get_element(locator, locator_type)
+            self.log.debug("Before finding the text.")
+            text = element.text
+            self.log.debug("Once the item is found, the size is: " + str(len(text)))
+            if len(text) == 0:
+                text = element.get_attribute("innerText")
+            if len(text) != 0:
+                self.log.info("getting text on element :: " + info)
+                self.log.info("text is ::'" + text + "'")
+                text = text.strip()
+        except:
+            self.log.error("Failed to get text on element " + info)
+            print_stack()
+            text = None
+        return text
+
+    def displayed_is_element(self, locator="", locator_type="id", element=None):
+        displayed = False
+        try:
+            if locator:
+                element = self.get_element(locator, locator_type)
+            if element is not None:
+                displayed = element.is_displayed()
+                self.log.info("Element is displayed with locator: " + locator +
+                              " locator_type: " + locator_type)
+            else:
+                self.log.info("Element is  not displayed with locator: " + locator + " locator_type: " + locator_type)
+            return displayed
+        except:
+            print("Element not found")
+            return False
+
+    def scroll_web(self, direction="up"):
+        if direction == "up":
+            self.driver.execute_script("window.scroll_by(0, -1000);")
+        if direction == "down":
+            self.driver.execute_script("window.scroll_by(0, 1000);")
+
